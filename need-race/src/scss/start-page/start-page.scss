@@ -1,0 +1,82 @@
+.start-page-inner{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	row-gap: 2rem;
+}
+.start-page-title{
+	text-align: center;
+	font-size: 4rem;
+	line-height: 4.6rem;
+	color: #fff;
+}
+.car-block-inner{
+	position: relative;
+	margin: 1rem 0;
+	border-bottom: 2px dashed #fff;
+}
+.car-top-inner{
+	display: flex;
+	column-gap: 2rem;
+	margin: 2.2rem 0 1.6rem 0;
+}
+.car-name{
+	font-size: 2rem;
+	font-style: italic;
+	color: #fff;
+}
+.car-button{
+	background-color: rgba(146, 13, 128, 0.8);
+	padding: 0.7rem 2rem;
+	color: #29a5b6;
+	border-radius: 12%;
+	cursor: pointer;
+}
+.car-buttons-control{
+	display: flex;
+	column-gap: 1rem;
+	margin: 0.9rem 0;
+}
+.car-button-control{
+	padding: 0.6rem;
+	cursor: pointer;
+}
+.car-block-img{
+	position: relative;
+}
+.garage-input{
+	display: block;
+}
+.control-item{
+	display: flex;
+	column-gap: 3rem;
+	padding: 2rem 0;
+}
+.main-buttons{
+	display: flex;
+	column-gap: 2rem;
+	padding: 1rem 0;
+}
+.nav-button{
+	padding: 0.5rem 2rem;
+	background-color: rgb(131, 4, 124);
+	font-size: 1.8rem;
+	letter-spacing: 0.1px;
+	color: #fff;
+	cursor: pointer;
+}
+.modal-hidden{
+	display: none;
+}
+.modal-window{
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	width: 300px;
+	min-height: 80px;
+	padding: 1rem;
+	border: 2px solid rgb(195, 38, 38);
+	background-color: rgba(107, 12, 151, 0.7);
+	color: #fff;
+	font-size: 2.2rem;
+}
