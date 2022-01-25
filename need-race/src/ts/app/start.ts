@@ -1,4 +1,5 @@
 import '../../scss/page/page-starting.scss';
+import GaragePage from './garage-page';
 
 export default class Start {
   private parent: HTMLElement;
@@ -13,15 +14,18 @@ export default class Start {
     const page:HTMLElement = document.createElement('div');
     page.classList.add('page-starting');
     const pageControlInner = document.createElement('div');
+				page.append(pageControlInner);
     pageControlInner.classList.add('page-control');
     const garageButton = document.createElement('button');
     garageButton.textContent = 'Garage';
     garageButton.classList.add('page-starting-button');
+				const garagePage = new GaragePage(page);
     garageButton.onclick = ():void => {
       if (this.pageStatus === 'garage') {
         return;
       }
       this.pageStatus = 'garage';
+						garagePage.show();
     };
     const winnersButton = document.createElement('button');
     winnersButton.textContent = 'Winners';
@@ -31,9 +35,10 @@ export default class Start {
         return;
       }
       this.pageStatus = 'winners';
+						garagePage.hide();
     };
+				garagePage.render();
     pageControlInner.append(garageButton, winnersButton);
-    page.append(pageControlInner);
     this.parent.append(page);
   }
 }

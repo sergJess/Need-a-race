@@ -1,3 +1,16 @@
+.garage-block-hide{
+	display: none;
+}
+.garage-buttons-item{
+	display: flex;
+	column-gap: 2rem;
+	padding: 2rem 0;
+}
+.garage-buttons-input{
+	display: block;
+	padding: 0.5rem 1rem;
+	font-size: 1.8rem;
+}
 .garage-cars-inner{
 	display: flex;
 	column-gap: 3rem;
