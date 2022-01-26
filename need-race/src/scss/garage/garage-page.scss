@@ -12,12 +12,25 @@
 	font-size: 1.8rem;
 }
 .garage-cars-inner{
-	display: flex;
-	column-gap: 3rem;
+	padding: 1rem 0;
 }
 .garage-page-title{
 	color: #fff;
 	font-size: 2.4rem;
 	font-style: italic;
 	padding: 1rem 0;
+}
+.garage-car-block{
+	padding: 2rem 0 0 0;
+	margin-bottom: 2rem;
+	border-bottom: 2px dashed #fff;
+}
+.garage-car-buttons-inner{
+	display: flex;
+	column-gap: 1rem;
+	padding: 0.6rem 0;
+}
+.car-title{
+	font-size: 1.8rem;
+	color:	#fff;
 }
