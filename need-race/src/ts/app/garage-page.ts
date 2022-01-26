@@ -1,6 +1,6 @@
 import '../../scss/garage/garage-page.scss';
 import generateCarSvg from '../common/generate-car-svg';
-import { createCar, startEngine } from '../api/api';
+import { createCar, Engine } from '../api/api';
 import { URL_LINK, COEF_SPEED, FINISH_LINE_PADDING } from '../common/constants';
 
 export default class GaragePage {
@@ -130,7 +130,7 @@ export default class GaragePage {
     let phase = 0;
     buttonStartEngine.onclick = (): void => {
       buttonStartEngine.setAttribute('disabled', 'true');
-      const startEngineResponse = startEngine(`${URL_LINK}/engine`, `${carBlock.getAttribute('data-id')}`, `${carBlock.getAttribute('data-status')}`);
+      const startEngineResponse = Engine(`${URL_LINK}/engine`, `${carBlock.getAttribute('data-id')}`, `${carBlock.getAttribute('data-status')}`);
       startEngineResponse.then((responseStart:Response):void => {
         if (responseStart.status === 200) {
           const responseEngine = responseStart.json();
@@ -143,9 +143,9 @@ export default class GaragePage {
               animationSwitcher = window.requestAnimationFrame(moveCar);
               if (fullDistance < phase / 10) {
                 window.cancelAnimationFrame(animationSwitcher);
-                carBlock.setAttribute('status', 'stopped');
-                carBlock.setAttribute('engine', 'good');
-                carBlock.setAttribute('time', `${fullDistance / (engineResponse.velocity * COEF_SPEED)}`);
+                carBlock.setAttribute('data-status', 'stopped');
+                carBlock.setAttribute('data-engine', 'good');
+                carBlock.setAttribute('data-time', `${fullDistance / (engineResponse.velocity * COEF_SPEED)}`);
                 // if (this.modalWindow.getAttribute('race') === 'undone') {
                 //   this.modalWindow.setAttribute('race', 'done');
                 //   this.modalWindow.classList.remove('modal-hidden');
@@ -153,7 +153,16 @@ export default class GaragePage {
                 // }
               }
             };
+            carBlock.setAttribute('data-status', 'drive');
+            const isEngineBroken = Engine(`${URL_LINK}/engine`, `${carBlock.getAttribute('data-id')}`, `${carBlock.getAttribute('data-status')}`);
             window.requestAnimationFrame(moveCar);
+            isEngineBroken.then((responseIsEngineBroken):void => {
+              if (responseIsEngineBroken.status === 500) {
+                window.cancelAnimationFrame(animationSwitcher);
+                carBlock.setAttribute('data-status', 'stopped');
+                carBlock.setAttribute('data-engine', 'broken');
+              }
+            }).catch((error: Error) => { console.log(error); });
           });
         }
       });

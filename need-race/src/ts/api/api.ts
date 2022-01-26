@@ -24,7 +24,7 @@ export async function createCar(url:string, data:updateCarParametrs): Promise<Ca
   const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   return response.json();
 }
-export async function startEngine(url:string, id:string, status:string): Promise<Response> {
+export async function Engine(url:string, id:string, status:string): Promise<Response> {
   const urlLink = new URL(url);
   urlLink.searchParams.append('id', `${id}`);
   urlLink.searchParams.append('status', `${status}`);
