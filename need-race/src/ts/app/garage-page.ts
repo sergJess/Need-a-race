@@ -1,6 +1,8 @@
 import '../../scss/garage/garage-page.scss';
 import generateCarSvg from '../common/generate-car-svg';
-import { createCar, Engine, getAllCars, CarsParametrs } from '../api/api';
+import {
+  createCar, Engine, getAllCars, CarsParametrs,
+} from '../api/api';
 import {
   URL_LINK, COEF_SPEED, FINISH_LINE_PADDING, PAGE_LIMIT,
 } from '../common/constants';
@@ -52,7 +54,7 @@ export default class GaragePage {
     buttonCreate.textContent = 'Create';
     buttonCreate.onclick = (): void => {
       if (inputCreateName.getAttribute('value')) {
-        const responseCreate = createCar(`${URL_LINK}/garage`, { name: `${inputCreateName.value}`, color: `${inputCreateColor.value}`});
+        const responseCreate = createCar(`${URL_LINK}/garage`, { name: `${inputCreateName.value}`, color: `${inputCreateColor.value}` });
         responseCreate.then((createResponse) => {
           this.createCarBlock(this.carsInner, `${createResponse.name}`, `${createResponse.color}`, `${createResponse.id}`);
         });
@@ -81,7 +83,7 @@ export default class GaragePage {
     buttonRace.onclick = (): void => {
       const dataCars = getAllCars(`${URL_LINK}/garage`);
       dataCars.then((data) => {
-        console.log(data.headers);
+        console.log(data);
         data.json().then((res) => {
           console.log(res);
         });
