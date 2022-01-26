@@ -1,9 +1,14 @@
 import '../../scss/garage/garage-page.scss';
+import generateCarSvg from '../common/generate-car-svg';
 
 export default class GaragePage {
   private parent: HTMLElement;
 
   private garageBlock = document.createElement('div');
+
+  private pageNumber = document.createElement('span');
+
+  private totalCars = document.createElement('span');
 
   constructor(parent:HTMLElement) {
     this.parent = parent;
@@ -18,6 +23,7 @@ export default class GaragePage {
   }
 
   render():void {
+    this.garageBlock.classList.add('garage-block');
     const garageButtonsInner = document.createElement('div');
     garageButtonsInner.classList.add('garage-buttons-inner');
     // block create car
@@ -59,9 +65,22 @@ export default class GaragePage {
     garageRace.append(buttonRace, buttonResetRace, buttonRandomCars);
     //
     garageButtonsInner.append(garageCarCreate, garageCarUpdate, garageRace);
+    // car page number and total cars
+    const pageNumberTitle = document.createElement('h2');
+    pageNumberTitle.classList.add('garage-page-title');
+    pageNumberTitle.textContent = 'Page:';
+    pageNumberTitle.append(this.pageNumber);
+    const pageTotalCars = document.createElement('h2');
+    pageTotalCars.classList.add('garage-page-title');
+    pageTotalCars.textContent = 'Total cars:';
+    pageTotalCars.append(this.totalCars);
     const carsInner:HTMLElement = document.createElement('div');
     carsInner.classList.add('garage-cars-inner');
-    this.garageBlock.append(garageButtonsInner);
+    this.garageBlock.append(garageButtonsInner, pageNumberTitle, pageTotalCars);
     this.parent.append(this.garageBlock);
+  }
+
+  createCarBlock(parent:HTMLElement, color:string): void {
+    generateCarSvg(color);
   }
 }
