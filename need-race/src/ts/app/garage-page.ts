@@ -169,7 +169,19 @@ export default class GaragePage {
     };
     const buttonStopEngine = document.createElement('button');
     buttonStopEngine.textContent = 'B';
-    buttonStopEngine.onclick = (): void => {};
+    buttonStopEngine.onclick = (): void => {
+      buttonStartEngine.removeAttribute('disabled');
+      carBlock.setAttribute('data-status', 'stopped');
+      phase = 0;
+      window.cancelAnimationFrame(animationSwitcher);
+      const stoppedEngine = Engine(`${URL_LINK}/engine`, `${carBlock.getAttribute('data-id')}`, `${carBlock.getAttribute('data-status')}`);
+      stoppedEngine.then((responseStopped):void => {
+        responseStopped.json().then(():void => {
+          carBlock.setAttribute('data-status', 'started');
+          carImage.style.transform = `translate(${(phase)}px)`;
+        });
+      });
+    };
     carButtonsEngine.append(buttonStartEngine, buttonStopEngine);
     //
     carBlock.append(carButtonsInner, carButtonsEngine, carImage);
