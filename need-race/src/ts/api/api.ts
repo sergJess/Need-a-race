@@ -12,6 +12,17 @@ export interface updateCarParametrs{
   name: string;
   color: string;
 }
+export async function getAllCars(url: string, page?:string, limit?: string): Promise<Response> {
+  const urlLink = new URL(url);
+  if (page) {
+    urlLink.searchParams.append('_page', `${page}`);
+  }
+  if (limit) {
+    urlLink.searchParams.append('_limit', `${limit}`);
+  }
+  const response = await fetch(`${urlLink}`);
+  return response;
+}
 export async function deleteCar(url: string):Promise<Response> {
   const response = await fetch(url, { method: 'DELETE' });
   return response;

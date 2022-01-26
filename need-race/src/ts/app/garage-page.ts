@@ -1,7 +1,9 @@
 import '../../scss/garage/garage-page.scss';
 import generateCarSvg from '../common/generate-car-svg';
-import { createCar, Engine } from '../api/api';
-import { URL_LINK, COEF_SPEED, FINISH_LINE_PADDING } from '../common/constants';
+import { createCar, Engine, getAllCars, CarsParametrs } from '../api/api';
+import {
+  URL_LINK, COEF_SPEED, FINISH_LINE_PADDING, PAGE_LIMIT,
+} from '../common/constants';
 
 export default class GaragePage {
   private parent: HTMLElement;
@@ -76,6 +78,15 @@ export default class GaragePage {
     garageRace.classList.add('garage-buttons-item');
     const buttonRace = document.createElement('button');
     buttonRace.textContent = 'Race';
+    buttonRace.onclick = (): void => {
+      const dataCars = getAllCars(`${URL_LINK}/garage`);
+      dataCars.then((data) => {
+        console.log(data.headers);
+        data.json().then((res) => {
+          console.log(res);
+        });
+      });
+    };
     const buttonResetRace = document.createElement('button');
     buttonResetRace.textContent = 'Reset Race';
     const buttonRandomCars = document.createElement('button');
@@ -92,6 +103,8 @@ export default class GaragePage {
     pageTotalCars.classList.add('garage-page-title');
     pageTotalCars.textContent = 'Total cars:';
     pageTotalCars.append(this.totalCars);
+    // load default cars
+    this.renderDefaultCars(this.carsInner);
     this.carsInner.classList.add('garage-cars-inner');
     this.garageBlock.append(garageButtonsInner, pageNumberTitle, pageTotalCars, this.carsInner);
     this.parent.append(this.garageBlock);
@@ -186,5 +199,16 @@ export default class GaragePage {
     //
     carBlock.append(carButtonsInner, carButtonsEngine, carImage);
     parent.append(carBlock);
+  }
+
+  renderDefaultCars(parent: HTMLElement): void {
+    const response = getAllCars(`${URL_LINK}/garage`, '1', `${PAGE_LIMIT}`);
+    response.then((responseDefault: Response):void => {
+      responseDefault.json().then((responseData:CarsParametrs[]):void => {
+        for (let i = 0; i < responseData.length; i += 1) {
+          this.createCarBlock(parent, `${responseData[i].name}`, `${responseData[i].color}`, `${responseData[i].id}`);
+        }
+      });
+    });
   }
 }
